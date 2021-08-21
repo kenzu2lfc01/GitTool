@@ -52,6 +52,10 @@ namespace GitTool.Web.Controllers
         [HttpPost("create-branch")]
         public ActionResult CreateBranch([FromBody] CreateBranchNameModel model)
         {
+            if (string.IsNullOrEmpty(model.ProjectDirectory)
+                || string.IsNullOrEmpty(model.TicketType)
+                || string.IsNullOrEmpty(model.TicketCode)
+                || string.IsNullOrEmpty(model.TicketName)) return BadRequest();
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
             cmd.StartInfo.Arguments = "/C cd " + model.ProjectDirectory;
